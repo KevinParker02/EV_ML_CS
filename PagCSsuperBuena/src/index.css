@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Arial', sans-serif;
+}
+
+
+.toggle-checkbox:checked {
+  right: 0;
+  border-color: #f97316;
+}
+
+.toggle-checkbox {
+  right: 0.25rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.toggle-label {
+  width: 2.5rem;
+  height: 1.5rem;
+  display: block;
+}
