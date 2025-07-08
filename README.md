@@ -13,8 +13,16 @@ Aplicación web que permite predecir resultados de partidas de CS:GO utilizando 
 
 1. Clona el repositorio:
 
-2. cd PagCSsuperBuena
+- Backend
 
-3. npm install
+2. cd backend
+3. python -m venv venv
+4. venv\Scripts\activate
+4.1 pip install fastapi uvicorn scikit-learn joblib numpy
 
-4. npm run dev
+- Frontend
+
+5. cd..
+6. cd PagCSsuperBuena
+7. npm install
+8. npm run dev
