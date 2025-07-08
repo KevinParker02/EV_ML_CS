@@ -4,20 +4,20 @@ import fondo from '../fondo.jpg';
 
 const CSGOPredictor = () => {
   const [formData, setFormData] = useState({
-    map: '',
-    team: '',
-    weapon: '',
-    equipmentValue: '',
-    timeAlive: '',
-    distance: '',
-    lethal: false,
-    nonLethal: false,
-    kills: '',
-    assists: '',
-    headshots: '',
-    match_kills: '',
-    time_alive: '',
-    travelled_distance: '',
+    // CLASIFICACIÓN
+    round_winner: '',
+    round_starting_equipment_value: 0,
+    time_alive: 0,
+    round_kills: 0,
+    round_assists: 0,
+    travelled_distance: 0,
+    team_starting_equipment_value: 0,
+
+    // REGRESIÓN
+    match_kills: 0,
+    team_starting_equipment_value2: 0,
+    travelled_distance2: 0,
+    time_alive2: 0,
   });
 
   const [prediction, setPrediction] = useState(null); // Clasificación
@@ -60,10 +60,10 @@ const CSGOPredictor = () => {
     setLoading(true);
 
     const payload = {
-      team_starting_equipment_value: Number(formData.equipmentValue),
+      team_starting_equipment_value: Number(formData.team_starting_equipment_value2),
       match_kills: Number(formData.match_kills),
-      time_alive: Number(formData.time_alive),
-      travelled_distance: Number(formData.travelled_distance),
+      time_alive: Number(formData.time_alive2),
+      travelled_distance: Number(formData.travelled_distance2),
     };
 
     try {
@@ -116,15 +116,15 @@ const CSGOPredictor = () => {
                 <div className="flex items-center gap-4">
                   <input
                     type="range"
-                    name="equipmentValue"
+                    name="round_starting_equipment_value"
                     min="0"
                     max="9000"
                     step="100"
-                    value={formData.equipmentValue}
+                    value={formData.round_starting_equipment_value}
                     onChange={handleChange}
                     className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-orange-500"
                   />
-                  <span className="text-orange-400 font-bold w-16 text-right">{formData.equipmentValue}</span>
+                  <span className="text-orange-400 font-bold w-16 text-right">{formData.round_starting_equipment_value}</span>
                 </div>
               </div>
 
@@ -133,24 +133,24 @@ const CSGOPredictor = () => {
                 <div className="flex items-center gap-4">
                   <input
                     type="range"
-                    name="equipmentValue"
+                    name="team_starting_equipment_value"
                     min="0"
                     max="9000"
                     step="100"
-                    value={formData.equipmentValue}
+                    value={formData.team_starting_equipment_value}
                     onChange={handleChange}
                     className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-orange-500"
                   />
-                  <span className="text-orange-400 font-bold w-16 text-right">{formData.equipmentValue}</span>
+                  <span className="text-orange-400 font-bold w-16 text-right">{formData.team_starting_equipment_value}</span>
                 </div>
               </div>
 
-              <input type="number" name="kills" placeholder="Asesinatos en la ronda" value={formData.kills} onChange={handleChange} className={inputClass} />
-              <input type="number" name="kills" placeholder="Asistencias en la ronda" value={formData.kills} onChange={handleChange} className={inputClass} />
-              <input type="number" name="kills" placeholder="Tiempo de supervivencia" value={formData.kills} onChange={handleChange} className={inputClass} />
-              <input type="number" name="kills" placeholder="Distancia recorrida" value={formData.kills} onChange={handleChange} className={inputClass} />
+              <input type="number" name="round_kills" placeholder="Asesinatos en la ronda" value={formData.round_kills} onChange={handleChange} className={inputClass} />
+              <input type="number" name="round_assists" placeholder="Asistencias en la ronda" value={formData.round_assists} onChange={handleChange} className={inputClass} />
+              <input type="number" name="time_alive" placeholder="Tiempo de supervivencia" value={formData.time_alive} onChange={handleChange} className={inputClass} />
+              <input type="number" name="travelled_distance" placeholder="Distancia recorrida" value={formData.travelled_distance} onChange={handleChange} className={inputClass} />
 
-              <select name="map" value={formData.map} onChange={handleChange} className={inputClass}>
+              <select name="round_winner" value={formData.round_winner} onChange={handleChange} className={inputClass}>
                 <option value="">Equipo Ganador</option>
                 <option value="Terroristas">Terroristas</option>
                 <option value="ContraTerroristas">ContraTerroristas</option>
@@ -189,21 +189,21 @@ const CSGOPredictor = () => {
                 <div className="flex items-center gap-4">
                   <input
                     type="range"
-                    name="equipmentValue"
+                    name="team_starting_equipment_value2"
                     min="0"
                     max="9000"
                     step="100"
-                    value={formData.equipmentValue}
+                    value={formData.team_starting_equipment_value2}
                     onChange={handleChange}
                     className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-orange-500"
                   />
-                  <span className="text-orange-400 font-bold w-16 text-right">{formData.equipmentValue}</span>
+                  <span className="text-orange-400 font-bold w-16 text-right">{formData.team_starting_equipment_value2}</span>
                 </div>
               </div>
 
               <input type="number" name="match_kills" placeholder="Asesinatos en la partida" value={formData.match_kills} onChange={handleChange} className={inputClass} />
-              <input type="number" name="time_alive" placeholder="Tiempo de supervivencia" value={formData.time_alive} onChange={handleChange} className={inputClass} />
-              <input type="number" name="travelled_distance" placeholder="Distancia recorrida" value={formData.travelled_distance} onChange={handleChange} className={inputClass} />
+              <input type="number" name="time_alive2" placeholder="Tiempo de supervivencia" value={formData.time_alive2} onChange={handleChange} className={inputClass} />
+              <input type="number" name="travelled_distance2" placeholder="Distancia recorrida" value={formData.travelled_distance2} onChange={handleChange} className={inputClass} />
 
               <button type="submit" className="col-span-2 mt-4 bg-orange-500 hover:bg-orange-600 font-bold py-3 px-6 rounded text-lg">
                 Calcular probabilidad de victoria
