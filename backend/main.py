@@ -15,22 +15,21 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Carga del modelo entrenado
-modelo = joblib.load("modelo_regresion.pkl")
+# Carga de modelos entrenados
+modelo = joblib.load("modelo_regresion.pkl")              # Modelo de regresión
+modelo2 = joblib.load("modelo_xgb_survived.pkl")          # Modelo de clasificación
 
-# Clase de entrada esperada por el modelo
+# ----------- Modelo REGRESIÓN -----------
 class DatosEntrada(BaseModel):
     team_starting_equipment_value: float
     match_kills: float
     time_alive: float
     travelled_distance: float
 
-# Endpoint principal de prueba
 @app.get("/")
 def root():
     return {"message": "FastAPI funcionando correctamente 🚀"}
 
-# Endpoint de predicción
 @app.post("/predict_regresion")
 def predecir(data: DatosEntrada):
     entrada = np.array([[ 
@@ -41,3 +40,50 @@ def predecir(data: DatosEntrada):
     ]])
     pred = modelo.predict(entrada)
     return {"victory_probability": float(pred[0])}
+
+# ----------- Modelo CLASIFICACIÓN -----------
+class DatosClasificacion(BaseModel):
+    round_winner: str             # "Terroristas" o "ContraTerroristas"
+    round_starting_equipment_value: float
+    team_starting_equipment_value: float
+    round_kills: float
+    round_assists: float
+    time_alive: float
+    travelled_distance: float
+    aggro_ratio: float
+    map: str                      # "inferno", "mirage", "nuke"
+    team_terrorist: str           # "true" o "false"
+
+@app.post("/predict_clasificacion")
+def predecir_clasificacion(data: DatosClasificacion):
+    # Codificación de variables
+    round_winner = 1 if data.round_winner == "Terroristas" else 0
+    team_terrorist = 1 if data.team_terrorist.lower() == "true" else 0
+    map_inferno = 1 if data.map == "inferno" else 0
+    map_mirage = 1 if data.map == "mirage" else 0
+    map_nuke = 1 if data.map == "nuke" else 0
+
+    entrada = np.array([[ 
+        round_winner,
+        data.round_starting_equipment_value,
+        data.time_alive,
+        data.aggro_ratio,
+        data.round_kills,
+        data.round_assists,
+        data.travelled_distance,
+        data.team_starting_equipment_value,
+        map_inferno,
+        map_mirage,
+        map_nuke,
+        team_terrorist
+    ]])
+
+    pred_clase = int(modelo2.predict(entrada)[0])
+    pred_proba = float(modelo2.predict_proba(entrada)[0][1])  # ya está entre 0 y 1
+    prob_percent = round(pred_proba * 100, 2)
+
+    return {
+        "clase": pred_clase,
+        "probability": prob_percent,
+        "message": "✅ Probabilidad de sobrevivir" if pred_clase == 1 else "❌ Alta probabilidad de morir"
+    }
