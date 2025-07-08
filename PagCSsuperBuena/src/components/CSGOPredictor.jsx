@@ -125,8 +125,8 @@ const CSGOPredictor = () => {
           
           <select name="map" value={formData.map} onChange={handleChange} className={inputClass}>
             <option value="">Equipo Ganador</option>
-            <option value="Terrristas">Terrristas</option>
-            <option value="ContraTerrristas">ContraTerrristas</option>
+            <option value="Terroristas">Terroristas</option>
+            <option value="ContraTerroristas">ContraTerroristas</option>
           </select>
 
           <button type="submit" className="col-span-2 mt-4 bg-orange-500 hover:bg-orange-600 font-bold py-3 px-6 rounded text-lg">
