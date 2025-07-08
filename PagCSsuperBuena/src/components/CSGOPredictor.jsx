@@ -5,19 +5,19 @@ import fondo from '../fondo.jpg';
 const CSGOPredictor = () => {
   const [formData, setFormData] = useState({
     // CLASIFICACIÓN
-    round_winner: '',
+    round_winner: 'Equipo Ganador',
     round_starting_equipment_value: 0,
-    time_alive: 0,
-    round_kills: 0,
-    round_assists: 0,
-    travelled_distance: 0,
+    time_alive: "Tiempo de supervivencia",
+    round_kills: "Asesinatos en la ronda",
+    round_assists: "Asistencias en la ronda",
+    travelled_distance: "Distancia recorrida",
     team_starting_equipment_value: 0,
 
     // REGRESIÓN
-    match_kills: 0,
+    match_kills: "Kills de la partida",
     team_starting_equipment_value2: 0,
-    travelled_distance2: 0,
-    time_alive2: 0,
+    travelled_distance2: "Distancia recorrida",
+    time_alive2: "Tiempo de supervivencia",
   });
 
   const [prediction, setPrediction] = useState(null); // Clasificación
