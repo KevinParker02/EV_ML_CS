@@ -18,11 +18,13 @@ Aplicación web que permite predecir resultados de partidas de CS:GO utilizando 
 2. cd backend
 3. python -m venv venv
 4. venv\Scripts\activate
+(Solo una vez al clonar el repositorio)
 4.1 pip install fastapi uvicorn scikit-learn joblib numpy
+5. uvicorn main:app --reload
 
 - Frontend
 
-5. cd..
-6. cd PagCSsuperBuena
-7. npm install
-8. npm run dev
+6. cd..
+7. cd PagCSsuperBuena
+8. npm install
+9. npm run dev
