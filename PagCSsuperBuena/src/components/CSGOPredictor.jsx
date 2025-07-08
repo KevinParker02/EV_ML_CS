@@ -118,13 +118,13 @@ const CSGOPredictor = () => {
               </div>
 
               <h2>Tus Kills</h2>
-              <input type="number" name="round_kills" placeholder="Kills ronda" value={formClasificacion.round_kills} onChange={handleChangeClasificacion} className={inputClass} />
+              <input type="number" min="0" name="round_kills" placeholder="Kills ronda" value={formClasificacion.round_kills} onChange={handleChangeClasificacion} className={inputClass} />
               <h2>Tus Asissts</h2>
-              <input type="number" name="round_assists" placeholder="Asistencias ronda" value={formClasificacion.round_assists} onChange={handleChangeClasificacion} className={inputClass} />
+              <input type="number" min="0" name="round_assists" placeholder="Asistencias ronda" value={formClasificacion.round_assists} onChange={handleChangeClasificacion} className={inputClass} />
               <h2>Segundos vivo</h2>
-              <input type="number" name="time_alive" placeholder="Tiempo con vida (s)" value={formClasificacion.time_alive} onChange={handleChangeClasificacion} className={inputClass} />
+              <input type="number" min="0" name="time_alive" placeholder="Tiempo con vida (s)" value={formClasificacion.time_alive} onChange={handleChangeClasificacion} className={inputClass} />
               <h2>Distancia Recorrida (METROS)</h2>
-              <input type="number" name="travelled_distance" placeholder="Distancia recorrida (m)" value={formClasificacion.travelled_distance} onChange={handleChangeClasificacion} className={inputClass} />
+              <input type="number" min="0" name="travelled_distance" placeholder="Distancia recorrida (m)" value={formClasificacion.travelled_distance} onChange={handleChangeClasificacion} className={inputClass} />
 
               <h2>¿Quién ganó?</h2>
               <select name="round_winner" value={formClasificacion.round_winner} onChange={handleChangeClasificacion} className={inputClass}>
@@ -134,7 +134,7 @@ const CSGOPredictor = () => {
               </select>
 
               <h2>¿Qué tan agresivo fuiste?</h2>
-              <input type="number" step="0.01" name="aggro_ratio" placeholder="Índice de agresividad" value={formClasificacion.aggro_ratio} onChange={handleChangeClasificacion} className={inputClass} />
+              <input type="number" min="0" step="0.01" name="aggro_ratio" placeholder="Índice de agresividad" value={formClasificacion.aggro_ratio} onChange={handleChangeClasificacion} className={inputClass} />
 
               <h2>¿Qué mapa jugaste?</h2>
               <select name="map" value={formClasificacion.map} onChange={handleChangeClasificacion} className={inputClass}>
@@ -175,19 +175,19 @@ const CSGOPredictor = () => {
               {/* Match Headshots */}
               <div className="col-span-2">
                 <label className="block text-orange-400 font-semibold mb-1">Headshots del equipo</label>
-                <input type="number" name="match_headshots" value={formRegresion.match_headshots} onChange={handleChangeRegresion} className={inputClass} />
+                <input type="number" min="0" name="match_headshots" value={formRegresion.match_headshots} onChange={handleChangeRegresion} className={inputClass} />
               </div>
 
               {/* Flank Kills */}
               <div className="col-span-2">
                 <label className="block text-orange-400 font-semibold mb-1">Flank kills del equipo</label>
-                <input type="number" name="match_flank_kills" value={formRegresion.match_flank_kills} onChange={handleChangeRegresion} className={inputClass} />
+                <input type="number" min="0" name="match_flank_kills" value={formRegresion.match_flank_kills} onChange={handleChangeRegresion} className={inputClass} />
               </div>
 
               {/* Match Assists */}
               <div className="col-span-2">
                 <label className="block text-orange-400 font-semibold mb-1">Asistencias del equipo</label>
-                <input type="number" name="match_assists" value={formRegresion.match_assists} onChange={handleChangeRegresion} className={inputClass} />
+                <input type="number" min="0" name="match_assists" value={formRegresion.match_assists} onChange={handleChangeRegresion} className={inputClass} />
               </div>
 
               {/* Team Starting Equipment (slider) */}
@@ -218,7 +218,7 @@ const CSGOPredictor = () => {
             {!loadingRegresion && regresionResult !== null && (
               <div className="mt-10 text-center border-t border-gray-700 pt-6">
                 <h2 className="text-white text-xl font-bold mb-2">Kills estimados</h2>
-                <div className="text-5xl font-bold text-orange-400">{regresionResult.toFixed(2)}</div>
+                <div className="text-5xl font-bold text-orange-400">{Math.trunc(regresionResult)}</div>
                 <p className="text-gray-400 mt-1">Según rendimiento del equipo</p>
               </div>
             )}
