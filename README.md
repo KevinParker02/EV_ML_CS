@@ -20,6 +20,7 @@ Aplicación web que permite predecir resultados de partidas de CS:GO utilizando 
 4. venv\Scripts\activate
 (Solo una vez al clonar el repositorio)
 4.1 pip install fastapi uvicorn scikit-learn joblib numpy
+4.2 pip install xgboost
 5. uvicorn main:app --reload
 
 - Frontend

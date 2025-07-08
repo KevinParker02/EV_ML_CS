@@ -19,29 +19,29 @@ app.add_middleware(
 modelo = joblib.load("modelo_regresion.pkl")              # Modelo de regresión
 modelo2 = joblib.load("modelo_xgb_survived.pkl")          # Modelo de clasificación
 
-# ----------- Modelo REGRESIÓN -----------
-class DatosEntrada(BaseModel):
+# ----------- MODELO DE REGRESIÓN -----------
+class DatosRegresion(BaseModel):
+    match_headshots: float
     team_starting_equipment_value: float
-    match_kills: float
-    time_alive: float
-    travelled_distance: float
+    match_flank_kills: float
+    match_assists: float
 
 @app.get("/")
 def root():
     return {"message": "FastAPI funcionando correctamente 🚀"}
 
 @app.post("/predict_regresion")
-def predecir(data: DatosEntrada):
+def predecir_kills(data: DatosRegresion):
     entrada = np.array([[ 
-        data.match_kills,
+        data.match_headshots,
         data.team_starting_equipment_value,
-        data.time_alive,
-        data.travelled_distance
+        data.match_flank_kills,
+        data.match_assists
     ]])
     pred = modelo.predict(entrada)
-    return {"victory_probability": float(pred[0])}
+    return {"match_kills": float(pred[0])}
 
-# ----------- Modelo CLASIFICACIÓN -----------
+# ----------- MODELO DE CLASIFICACIÓN -----------
 class DatosClasificacion(BaseModel):
     round_winner: str             # "Terroristas" o "ContraTerroristas"
     round_starting_equipment_value: float
