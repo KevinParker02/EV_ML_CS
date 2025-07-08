@@ -31,11 +31,11 @@ def root():
     return {"message": "FastAPI funcionando correctamente 🚀"}
 
 # Endpoint de predicción
-@app.post("/predict_regresion")  # si quieres puedes cambiarlo a "/predict_regresion"
+@app.post("/predict_regresion")
 def predecir(data: DatosEntrada):
     entrada = np.array([[ 
-        data.team_starting_equipment_value,
         data.match_kills,
+        data.team_starting_equipment_value,
         data.time_alive,
         data.travelled_distance
     ]])
